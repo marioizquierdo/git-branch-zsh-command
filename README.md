@@ -68,8 +68,10 @@ Delete both local and remote versions of my-new-cool-branch:
     Switched to branch 'master'
     > git checkout -d my-new-cool-branch
     Deleted branch my-new-cool-branch (was 6036aa3).
+    > git push origin :my-new-cool-branch
     To git@github.com:whatever
      - [deleted]         my-new-cool-branch
+
 
 ### Write more aliases to make it better:
 
