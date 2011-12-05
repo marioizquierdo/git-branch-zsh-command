@@ -50,7 +50,7 @@ Create branch and push to origin:
     To git@github.com:whatever
      * [new branch]      my-new-cool-branch -> my-new-cool-branch
 
-Delete branch, and other options:
+And More ...
 
     [zsh]project(master)$ branch help
 
