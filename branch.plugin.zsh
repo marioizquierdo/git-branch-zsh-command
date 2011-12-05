@@ -4,7 +4,7 @@
 #
 function branch() {
   case $1 in
-    (help | -h)
+    (help | -h | --help)
       print "Wrapper for git branch management. Usage:
       branch help               #=> print this help
       branch                    #=> list local branches

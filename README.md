@@ -11,10 +11,16 @@ In fact, any `branch` command will display the original git command that was use
   * Enable the plugin in your `.zshrc` file (add to the plugins list)
   * Type `source ~/.zshrc`, or just restart the terminal (to activate the plugin)
 
+
 ### Usage
 
+Help:
 
-In you shell, go to any git project:
+  branch -h
+
+#### Example usage:
+
+In you shell, go to any git project, for example 'project' in branch master:
 
     [zsh]project(master)$ _
 
@@ -24,7 +30,7 @@ See branches:
     * master
       other-branch
 
-Change branch:
+Change branch (note that branch [tab] ):
 
     [zsh]project(master)$ branch other-branch
     > git checkout other-branch
@@ -50,72 +56,31 @@ Create branch and push to origin:
     To git@github.com:whatever
      * [new branch]      my-new-cool-branch -> my-new-cool-branch
 
-And More ...
+More examples:
 
-    [zsh]project(master)$ branch help
+    $ branch help
 
+### Write more aliases to make it better:
 
+You should do your own aliases that work for you, but here you are an example of what I use in my shell,
 
-### Example
+in my ~/.zshrc
 
-My git flow is usually something like this:
+    # GIT ALIASES
+    alias st='git status -s'
+    alias commit='git commit -a -m'
+    alias cm='commit'
+    alias pull='branch pull'
+    alias push='branch push'
 
-  * create a new branch
-  * make changes and commit
-  * push changes to origin
-  * Change branch
-  * pull changes from origin
-  * make changes and commit
-  * push changes to origin
-  * go back to master
-  * merge changes in master (preferably through a pull request)
-  * remove branches
+So now my usual git flow can be like this:
 
-To achieve this, using plain git, I would type something liske this:
-
-    (master)$ git checkout -b new-branch
-
-    # make some changes
-    (new-branch)$ git commit -a -m "chanegs done..."
-    (new-branch)$ git push origin new-branch
-
-    (new-branch)$ git branch
-    (new-branch)$ git checkout other-branch
-    (other-branch)$ git pull origin other-branch
-    # make some changes
-    (other-branch)$ git commit -a -m "chanegs done..."
-    (other-branch)$ git push origin other-branch
-
-    (other-branch)$ git checkout master
-
-    (master)$ git merge other-branch
-    (master)$ git branch -d other-branch
-    (master)$ git push origin :other-branch
-
-    (master)$ git merge new-branch
-    (master)$ git branch -d new-branch
-    (master)$ git push origin :new-branch
-
-With the branch command, it will be simplified to:
-
-    (master)$ branch new new-branch
-
-    # make some changes
-    (new-branch)$ git commit -a -m "chanegs done..."
-    (new-branch)$ branch push
-
-    (new-branch)$ branch
-    (new-branch)$ branch other-branch
-    (other-branch)$ branch pull
-    # make some changes
-    (other-branch)$ git commit -a -m "chanegs done..."
-    (other-branch)$ branch push
-
-    (other-branch)$ branch master
-    (master)$ git merge other-branch
-    (master)$ git merge new-branch
-
-    (master)$ branch other-branch
-    (other-branch)$ branch remove
-    (master)$ branch remove new-branch
+    (master)$ pull  # pull changes from master
+    (master)$ branch new new-branch  # create a new branch and checkout
+    (new-branch)$ touch x
+    (new-branch)$ git add x  # add a new file
+    (new-branch)$ st  # check status
+    (new-branch)$ cm "added a new x file"  # commit
+    (new-branch)$ push  # push changes to origin/new-branch
+    (new-branch)$ branch m[tab][enter]  # use autocomplete to change back to master
     (master)$
