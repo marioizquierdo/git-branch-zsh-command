@@ -13,6 +13,7 @@ The most important feature is intuitiveness:
     $ branch mast[tab]   #=> autocomplete with 'master', then you hit enter and checkout into master
     $ branch new <name>  #=> create and checkout new branch
     $ branch pull        #=> pull from origin the remote branch with the same name as current branch
+    $ branch pull master #=> pull from origin/master and merge into current branch
     $ branch remove      #=> removes both local and remote versions of the current branch
 
 
