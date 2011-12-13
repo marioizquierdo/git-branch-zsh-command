@@ -38,6 +38,9 @@ function branch() {
       ;;
     (remove | delete | rm)
       local branch_to_remove=$2; : ${branch_to_remove:=$(branch current)}
+      if [[ $branch_to_remove = $(branch current) ]]; then
+        branch master
+      fi
       printdo git branch -d $branch_to_remove
       printdo git push origin :$branch_to_remove
       ;;
