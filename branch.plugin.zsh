@@ -14,6 +14,7 @@ function branch() {
       branch new <new-branch>   #=> creates and and checkout <new-branch>
       branch push [<branch>]    #=> push <branch> [default current branch] commits to origin
       branch pull [<branch>]    #=> pull <branch> [default current branch] from origin
+      branch pullrebase [<b>]   #=> same as pull, but rebase local commits on top of origin (git pull --rebase)
       branch remove [<branch>]  #=> removes both local and remote versions of <branch> [default current branch]
       branch current            #=> display current branch
       "
@@ -35,6 +36,10 @@ function branch() {
     (pull)
       local branch_to_pull=$2; : ${branch_to_pull:=$(branch current)}
       printdo git pull origin $branch_to_pull
+      ;;
+    (pullrebase)
+      local branch_to_pull=$2; : ${branch_to_pull:=$(branch current)}
+      printdo git pull --rebase origin $branch_to_pull
       ;;
     (remove | delete | rm)
       local branch_to_remove=$2; : ${branch_to_remove:=$(branch current)}
