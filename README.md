@@ -6,7 +6,7 @@ In fact, the command output will display the original git command that was used,
 
 It is similar to a simple set of aliases (like in the [git plugin of oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/git/git.plugin.zsh)), but with a little extra functionality, because it knows the current branch and can autocomplete accordingly.
 
-The most important feature is intuitiveness:
+It's all about making it intuitive:
 
     $ branch[enter]      #=> show branches
     $ branch [tab]       #=> show branches to autocomplete
@@ -18,10 +18,15 @@ The most important feature is intuitiveness:
 
 
 ### Installation
+If you are using oh-my-zsh:
 
-  * Copy the branch folder to `.oh-my-zsh/custom/plugins` (if you use oh-my-zsh, otherwise, put wherever you want)
-  * Enable the plugin in your `.zshrc` file (add to the plugins list)
-  * Type `source ~/.zshrc`, or just restart the terminal (to activate the plugin)
+Copy the branch folder to `.oh-my-zsh/custom/plugins`, for example:
+```
+cd ~/.oh-my-zsh/custom/plugins
+git clone git@github.com:marioizquierdo/git-branch-zsh-command.git branch
+```
+Enable the plugin in your `.zshrc` file. Edit `~/.zshrc` to activate the plugin, for example: `plugins=(branch)`
+And restart the terminal to apply (or just type `source ~/.zshrc`).
 
 
 ### Usage
