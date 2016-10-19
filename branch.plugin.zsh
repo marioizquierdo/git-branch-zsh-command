@@ -8,6 +8,7 @@ function branch() {
       print "Wrapper for git branch management. Usage:
       branch help               #=> print this help
       branch                    #=> list local branches
+      branch current            #=> display current branch
       branch [tab]              #=> autocomplete with local branches
       branch <other-branch>     #=> change current branch to <other-branch>
       branch go <other-branch>  #=> change current branch to <other-branch>
@@ -15,8 +16,8 @@ function branch() {
       branch push [<branch>]    #=> push <branch> [default current branch] commits to origin
       branch pull [<branch>]    #=> pull <branch> [default current branch] from origin
       branch pullrebase [<b>]   #=> same as pull, but rebase local commits on top of origin (git pull --rebase)
-      branch remove [<branch>]  #=> removes both local and remote versions of <branch> [default current branch]
-      branch current            #=> display current branch
+      branch rm [<branch>]      #=> removes both local and remote versions of <branch> [default current branch]
+      branch RM [<branch>]      #=> same as rm but forces removal of local branch even if is not fully merged
       "
       ;;
     ('')
@@ -41,12 +42,16 @@ function branch() {
       local branch_to_pull=$2; : ${branch_to_pull:=$(branch current)}
       printdo git pull --rebase origin $branch_to_pull
       ;;
-    (remove | delete | rm)
+    (remove | rm | RM)
       local branch_to_remove=$2; : ${branch_to_remove:=$(branch current)}
       if [[ $branch_to_remove = $(branch current) ]]; then
         branch master
       fi
-      printdo git branch -d $branch_to_remove
+      if [[ $1 = RM ]]; then
+        printdo git branch -D $branch_to_remove
+      else
+        printdo git branch -d $branch_to_remove
+      fi
       printdo git push origin :$branch_to_remove
       ;;
     (go | checkout)
