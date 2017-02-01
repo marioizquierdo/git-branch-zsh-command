@@ -10,14 +10,14 @@ function branch() {
       branch                    #=> list local branches
       branch current            #=> display current branch
       branch [tab]              #=> autocomplete with local branches
-      branch <other-branch>     #=> change current branch to <other-branch>
-      branch go <other-branch>  #=> change current branch to <other-branch>
-      branch new <new-branch>   #=> creates and and checkout <new-branch>
+      branch <branch>           #=> change current branch to <branch>
+      branch checkout <branch>  #=> change current branch to <branch>
+      branch new <branch>       #=> create and checkout <branch>
       branch push [<branch>]    #=> push <branch> [default current branch] commits to origin
       branch pull [<branch>]    #=> pull <branch> [default current branch] from origin
       branch pullrebase [<b>]   #=> same as pull, but rebase local commits on top of origin (git pull --rebase)
-      branch rm [<branch>]      #=> removes both local and remote versions of <branch> [default current branch]
-      branch RM [<branch>]      #=> same as rm but forces removal of local branch even if is not fully merged
+      branch rm <branches...>   #=> removes both local and remote versions of the listed branches
+      branch RM <branches...>   #=> same as rm but forces removal of local branch, even if is not fully merged
       "
       ;;
     ('')
@@ -28,7 +28,11 @@ function branch() {
       echo ${ref#refs/heads/}
       ;;
     (new)
-      printdo git checkout -b $2
+      if [[ -z $2 ]]; then
+        print "error: please specify branch to create"
+      else
+        printdo git checkout -b $2
+      fi
       ;;
     (push)
       local branch_to_push=$2; : ${branch_to_push:=$(branch current)}
@@ -42,19 +46,31 @@ function branch() {
       local branch_to_pull=$2; : ${branch_to_pull:=$(branch current)}
       printdo git pull --rebase origin $branch_to_pull
       ;;
-    (remove | rm | RM)
-      local branch_to_remove=$2; : ${branch_to_remove:=$(branch current)}
-      if [[ $branch_to_remove = $(branch current) ]]; then
-        branch master
-      fi
-      if [[ $1 = RM ]]; then
-        printdo git branch -D $branch_to_remove
+    (rm)
+      if [[ -z $2 ]]; then
+        print "error: please specify branch to remove"
       else
-        printdo git branch -d $branch_to_remove
+        for branch_to_remove; do
+          if [[ $branch_to_remove != "rm" ]]; then
+            printdo git branch -d $branch_to_remove
+            printdo git push origin :$branch_to_remove
+          fi
+        done
       fi
-      printdo git push origin :$branch_to_remove
       ;;
-    (go | checkout)
+    (RM)
+      if [[ -z $2 ]]; then
+        print "error: please specify branch to remove"
+      else
+        for branch_to_remove; do
+          if [[ $branch_to_remove != "RM" ]]; then
+            printdo git branch -D $branch_to_remove
+            printdo git push origin :$branch_to_remove
+          fi
+        done
+      fi
+      ;;
+    (checkout)
       printdo git checkout $2
       ;;
     (*)
