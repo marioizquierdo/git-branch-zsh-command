@@ -21,7 +21,7 @@ function branch() {
       "
       ;;
     ('')
-      git branch
+      git --no-pager branch
       ;;
     (current)
       ref=$(git symbolic-ref HEAD 2> /dev/null) || return
