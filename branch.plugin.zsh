@@ -36,11 +36,16 @@ function branch() {
       ;;
     (move)
       if [[ -z $2 ]]; then
-        print "error: please specify branch to move"
+        print "error: please specify branch to rename"
       else
         printdo git branch -m $2
       fi
       ;;
+    (MOVE)
+      if [[ -z $2 ]]; then
+        print "error: please specify branch to rename"
+      else
+        printdo git branch -M $2
     (new)
       if [[ -z $2 ]]; then
         print "error: please specify branch to create"
