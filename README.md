@@ -8,13 +8,24 @@ It is similar to a simple set of aliases (like in the [git plugin of oh-my-zsh](
 
 The usage is quite intuitive:
 
-    $ branch[enter]       #=> show branches
-    $ branch [tab]        #=> show branches to autocomplete
-    $ branch mast[tab]    #=> autocomplete with 'master', then you hit enter and checkout into master
-    $ branch new <name>   #=> create and checkout new branch
-    $ branch pull         #=> pull from origin, current branch
-    $ branch pull master  #=> pull from origin/master and merge into current branch
-    $ branch rm <b1> <b2> #=> removes both local and remote versions of branches b1 and b2
+    $ branch[enter]            #=> show branches
+    $ branch [tab]             #=> show branches to autocomplete
+    $ branch mast[tab]         #=> autocomplete with 'master', then you hit enter and checkout into master
+    $ branch all               #=> show all branches, including remotes (same as branch -a or git branch --all)
+    $ branch current           #=> show current branch
+    $ branch remotes           #=> show remote branches
+    $ branch <name>            #=> checkout into branch <name>
+    $ branch move <name>       #=> rename current branch to <name>
+    $ branch new <name>        #=> create and checkout new branch
+    $ branch pull              #=> pull from origin, current branch
+    $ branch pull master       #=> pull from origin/master and merge into current branch
+    $ branch push              #=> push to origin, current branch
+    $ branch push <name>       #=> push to origin, branch <name>
+    $ branch rm <b1> <b2>      #=> removes both local and remote versions of branches b1 and b2
+    $ branch rmlocal <b1>      #=> removes local version of branch b1
+    $ branch help              #=> show help
+    $ branch set-upstream <b1> #=> set upstream branch to b1 for current branch
+    $ branch unset-upstream    #=> unset upstream branch for current branch
 
 For more help, type `branch help`.
 
@@ -79,6 +90,15 @@ Delete both local and remote versions of my-new-cool-branch:
     > git push origin :my-new-cool-branch
     To git@github.com:whatever
      - [deleted]         my-new-cool-branch
+
+If you want to delete only the local version of the branch, use `branch rmlocal`
+instead. This is useful if you haven't pushed the branch to origin yet.
+
+    (my-new-cool-branch)$ branch rmlocal my-new-cool-branch
+    > git checkout master
+    Switched to branch 'master'
+    > git checkout -d my-new-cool-branch
+    Deleted branch my-new-cool-branch (was 6036aa3).
 
 
 ### Recommended aliases:
