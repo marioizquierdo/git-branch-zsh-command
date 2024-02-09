@@ -46,6 +46,8 @@ function branch() {
         print "error: please specify branch to rename"
       else
         printdo git branch -M $2
+      fi
+      ;;
     (new)
       if [[ -z $2 ]]; then
         print "error: please specify branch to create"
@@ -136,3 +138,8 @@ function printdo() {
 
 # Autocomplete for 'branch'
 compdef _git branch=git-branch
+
+# # Before each alias, print the original command
+# for alias in ${(ok)aliases}; do
+#   aliases[$alias]="print -P \"\n%F{yellow}󰙎 %F{green}${aliases[$alias]}\n%f\"; ${aliases[$alias]}"
+# done
